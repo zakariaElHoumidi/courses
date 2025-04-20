@@ -19,6 +19,8 @@ class Index extends Component
 
     public ?int $language_id;
 
+    public string $search = "";
+
     public function mount(): void
     {
         $this->user = auth()->user();
@@ -28,6 +30,14 @@ class Index extends Component
     private function getLanguages(): void
     {
         $query = Language::where('user_id', $this->user->id);
+
+        if ($this->search) {
+            $query->where(function ($q) {
+                $q->where('label', 'like', '%' . $this->search . '%')
+                    ->orWhere('description', 'like', '%' . $this->search . '%');
+            });
+        }
+
         $language_exist = $query->exists();
 
         if ($language_exist) {
@@ -37,31 +47,47 @@ class Index extends Component
         }
     }
 
-    #[On(['language-added', 'language-updated'])]
-    public function refreshLanguages(): void {
+    public function updatedSearch()
+    {
         $this->getLanguages();
     }
 
-    public function createLanguage(): void {
+    public function resetSearch(): void {
+        $this->search = "";
+        $this->getLanguages();
+    }
+
+    #[On(['language-added', 'language-updated'])]
+    public function refreshLanguages(): void
+    {
+        $this->getLanguages();
+    }
+
+    public function createLanguage(): void
+    {
         $this->showModalStore = true;
     }
 
-    public function editLanguage(int $id): void {
+    public function editLanguage(int $id): void
+    {
         $this->language_id = $id;
         $this->showModalUpdate = true;
     }
 
     #[On('modal-language-store')]
-    public function toggleModalStore(): void {
+    public function toggleModalStore(): void
+    {
         $this->showModalStore = !$this->showModalStore;
     }
 
     #[On('modal-language-update')]
-    public function toggleModalUpdate(): void {
+    public function toggleModalUpdate(): void
+    {
         $this->showModalUpdate = !$this->showModalUpdate;
     }
 
-    public function deleteLanguage(int $id): void {
+    public function deleteLanguage(int $id): void
+    {
         try {
             $language = Language::find($id);
 

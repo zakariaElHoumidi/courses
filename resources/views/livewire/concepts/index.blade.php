@@ -16,6 +16,27 @@
         </button>
     </div>
 
+    <div class="my-2">
+        <input type="search" class="form-control shadow-sm" placeholder="Search"
+            wire:model.live.debounce.250ms="search">
+    </div>
+
+    <div class="my-2 d-flex align-items-center justify-content-between gap-2">
+        <select class="form-select shadow-sm" wire:model.live.debounce.500ms="category_id">
+            <option value="0">Choose categories</option>
+            @foreach ($categories as $category)
+                <option value="{{ $category->id }}">{{ $category->label }}</option>
+            @endforeach
+        </select>
+
+        <select class="form-select shadow-sm" wire:model.live.debounce.500ms="language_id">
+            <option value="0">Choose languages</option>
+            @foreach ($languages as $language)
+                <option value="{{ $language->id }}">{{ $language->label }}</option>
+            @endforeach
+        </select>
+    </div>
+
     <table class="table table-striped">
         <thead>
             <tr>
@@ -55,6 +76,6 @@
     @endif
 
     @if ($showModalUpdate)
-        <livewire:concepts.edit :id="$concept_id"/>
+        <livewire:concepts.edit :id="$concept_id" />
     @endif
 </div>

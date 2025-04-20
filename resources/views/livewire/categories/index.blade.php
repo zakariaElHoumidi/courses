@@ -16,6 +16,11 @@
         </button>
     </div>
 
+    <div class="my-2">
+        <input type="search" class="form-control shadow-sm" placeholder="Search"
+            wire:model.live.debounce.250ms="search">
+    </div>
+
     <table class="table table-striped">
         <thead>
             <tr>

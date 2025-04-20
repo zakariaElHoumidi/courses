@@ -19,6 +19,8 @@ class Index extends Component
 
     public ?int $category_id;
 
+    public string $search = "";
+
     public function mount(): void
     {
         $this->user = auth()->user();
@@ -28,6 +30,11 @@ class Index extends Component
     private function getCategories(): void
     {
         $query = Category::where('user_id', $this->user->id);
+
+        if ($this->search) {
+            $query->where('label', 'like', '%' . $this->search . '%');
+        }
+
         $category_exist = $query->exists();
 
         if ($category_exist) {
@@ -37,31 +44,47 @@ class Index extends Component
         }
     }
 
-    #[On(['category-added', 'category-updated'])]
-    public function refreshCategories(): void {
+    public function updatedSearch()
+    {
         $this->getCategories();
     }
 
-    public function createCategory(): void {
+    public function resetSearch(): void {
+        $this->search = "";
+        $this->getCategories();
+    }
+
+    #[On(['category-added', 'category-updated'])]
+    public function refreshCategories(): void
+    {
+        $this->getCategories();
+    }
+
+    public function createCategory(): void
+    {
         $this->showModalStore = true;
     }
 
-    public function editCategory(int $id): void {
+    public function editCategory(int $id): void
+    {
         $this->category_id = $id;
         $this->showModalUpdate = true;
     }
 
     #[On('modal-category-store')]
-    public function toggleModalStore(): void {
+    public function toggleModalStore(): void
+    {
         $this->showModalStore = !$this->showModalStore;
     }
 
     #[On('modal-category-update')]
-    public function toggleModalUpdate(): void {
+    public function toggleModalUpdate(): void
+    {
         $this->showModalUpdate = !$this->showModalUpdate;
     }
 
-    public function deleteCategory(int $id): void {
+    public function deleteCategory(int $id): void
+    {
         try {
             $category = Category::find($id);
 
