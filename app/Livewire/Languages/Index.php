@@ -42,10 +42,12 @@ class Index extends Component
 
         if ($language_exist) {
             if ($this->mode_sort == 'desc') {
-                $this->languages = $query->latest()->get();
+                $query->latest();
             } else {
-                $this->languages = $query->oldest()->get();
+                $query->oldest();
             }
+
+            $this->languages = $query->get();
         } else {
             $this->languages = new Collection();
         }

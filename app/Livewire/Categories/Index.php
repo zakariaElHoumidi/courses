@@ -39,10 +39,12 @@ class Index extends Component
 
         if ($category_exist) {
             if ($this->mode_sort == 'desc') {
-                $this->categories = $query->latest()->get();
+                $query->latest();
             } else {
-                $this->categories = $query->oldest()->get();
+                $query->oldest();
             }
+
+            $this->categories = $query->get();
         } else {
             $this->categories = new Collection();
         }

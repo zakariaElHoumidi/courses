@@ -54,10 +54,12 @@ class Index extends Component
 
         if ($concept_exist) {
             if ($this->mode_sort == 'desc') {
-                $this->concepts = $query->latest()->get();
+                $query->latest();
             } else {
-                $this->concepts = $query->oldest()->get();
+                $query->oldest();
             }
+
+            $this->concepts = $query->get();
         } else {
             $this->concepts = new Collection();
         }
