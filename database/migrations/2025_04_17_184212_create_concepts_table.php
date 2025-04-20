@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('concepts', function (Blueprint $table) {
             $table->id();
-            $table->string('label')->unique();
+            $table->string('label');
             $table->text('description');
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('category_id')->constrained('categories');

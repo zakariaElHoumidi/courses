@@ -15,15 +15,27 @@ class LanguageSeeder extends Seeder
     public function run(): void
     {
         Language::create([
-            'label' => 'PHP 1',
-            'description' => 'PHP 1',
-            'user_id' => User::all()->random()->id
+            'label' => 'HTML 1',
+            'description' => 'HTML 1',
+            'user_id' => User::first()->id
+        ]);
+
+        Language::create([
+            'label' => 'CSS 1',
+            'description' => 'CSS 1',
+            'user_id' => User::first()->id
         ]);
 
         Language::create([
             'label' => 'JS 1',
             'description' => 'JS 1',
-            'user_id' => User::all()->random()->id
+            'user_id' => User::first()->id
+        ]);
+
+        Language::create([
+            'label' => 'PHP 1',
+            'description' => 'PHP 1',
+            'user_id' => User::first()->id
         ]);
     }
 }

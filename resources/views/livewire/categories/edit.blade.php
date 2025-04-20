@@ -1,15 +1,15 @@
-<div class="modal fade show" style="display: block" id="storeCategory" tabindex="-1">
+<div class="modal fade show" style="display: block" id="updateCategory" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="storeCategoryLabel">Update Category</h1>
+                <h1 class="modal-title fs-5" id="updateCategoryLabel">Update Category</h1>
                 <button type="button" class="btn-close" wire:click="modalToggle"></button>
             </div>
             <div class="modal-body">
                 <div class="mb-3">
                     <label for="label" class="col-form-label">Label</label>
 
-                    <input id="label" type="text" class="form-control @error('label') is-invalid @enderror"
+                    <input id="label" type="text" class="form-control shadow-sm @error('label') is-invalid @enderror"
                         name="label" value="{{ old('label') }}" required placeholder="Label" wire:model.lazy="label">
 
                     @error('label')

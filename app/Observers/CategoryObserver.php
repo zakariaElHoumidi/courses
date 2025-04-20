@@ -8,6 +8,10 @@ class CategoryObserver
 {
     public function creating(Category $category): void
     {
-        $category->user_id = auth()->user()->id;
+        $isAuth = auth()->check();
+
+        if ($isAuth) {
+            $category->user_id = auth()->user()->id;
+        }
     }
 }

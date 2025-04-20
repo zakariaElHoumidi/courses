@@ -9,7 +9,7 @@
                 <div class="mb-3">
                     <label for="label" class="col-form-label">Label</label>
 
-                    <input id="label" type="text" class="form-control @error('label') is-invalid @enderror"
+                    <input id="label" type="text" class="form-control shadow-sm @error('label') is-invalid @enderror"
                         name="label" value="{{ old('label') }}" required placeholder="Label" wire:model.lazy="label">
 
                     @error('label')

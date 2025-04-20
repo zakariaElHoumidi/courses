@@ -27,9 +27,11 @@ class language extends Component
 
         if ($language_exist) {
             $this->languages = $query->latest()->take($this->limit)->get();
+        } else {
+            $this->languages = new Collection();
         }
     }
-    
+
     public function render(): View|Closure|string
     {
         return view('components.language');

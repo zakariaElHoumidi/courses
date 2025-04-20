@@ -16,14 +16,14 @@ class ConceptSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i = 0; $i < 3; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             $language = Language::all()->random();
             Concept::create([
                 'label' => 'Concept_' . $i,
                 'description' => 'Concept_' . $i,
                 'user_id' => $language->user->id,
                 'language_id' => $language->id,
-                'category_id' => Category::all()->random()->id,
+                'category_id' => Category::first()->id,
             ]);
         }
     }

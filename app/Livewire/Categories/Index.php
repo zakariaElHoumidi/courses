@@ -17,7 +17,7 @@ class Index extends Component
     public bool $showModalUpdate = false;
     public bool $cannotDelete = false;
 
-    public ?Category $category;
+    public ?int $category_id;
 
     public function mount(): void
     {
@@ -32,6 +32,8 @@ class Index extends Component
 
         if ($category_exist) {
             $this->categories = $query->latest()->get();
+        } else {
+            $this->categories = new Collection();
         }
     }
 
@@ -44,9 +46,9 @@ class Index extends Component
         $this->showModalStore = true;
     }
 
-    public function editCategory(Category $category): void {
+    public function editCategory(int $id): void {
+        $this->category_id = $id;
         $this->showModalUpdate = true;
-        $this->category = $category;
     }
 
     #[On('modal-category-store')]
@@ -59,8 +61,13 @@ class Index extends Component
         $this->showModalUpdate = !$this->showModalUpdate;
     }
 
-    public function deleteCategory(Category $category): void {
+    public function deleteCategory(int $id): void {
         try {
+            $category = Category::find($id);
+
+            if (!$category) {
+                return;
+            }
             $category->delete();
 
             $this->refreshCategories();

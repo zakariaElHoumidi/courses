@@ -12,7 +12,12 @@ class Edit extends Component
     public string $label;
     public Category $category;
 
-    public function mount(Category $category): void {
+    public function mount(int $id): void {
+        $category = Category::find($id);
+
+        if (!$category) {
+            return;
+        }
         $this->category = $category;
         $this->label = $category->label;
     }

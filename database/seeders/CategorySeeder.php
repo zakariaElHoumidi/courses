@@ -16,12 +16,22 @@ class CategorySeeder extends Seeder
     {
         Category::create([
             'label' => 'Front End',
-            'user_id' => 1
+            'user_id' => User::first()->id
         ]);
 
         Category::create([
             'label' => 'Back End',
-            'user_id' => 2
+            'user_id' => User::first()->id
+        ]);
+
+        Category::create([
+            'label' => 'Security',
+            'user_id' => User::first()->id
+        ]);
+
+        Category::create([
+            'label' => 'Autre',
+            'user_id' => User::first()->id
         ]);
     }
 }

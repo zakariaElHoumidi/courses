@@ -27,6 +27,8 @@ class Concept extends Component
 
         if ($concept_exist) {
             $this->concepts = $query->latest()->take($this->limit)->get();
+        } else {
+            $this->concepts = new Collection();
         }
     }
 
