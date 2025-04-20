@@ -24,7 +24,12 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Label</th>
+                <th>
+                    Label
+                    <button class="btn btn-sm" wire:click='changeModeSort()'>
+                        <i class="fa-solid fa-arrow-{{$mode_sort == "asc" ? "down" : "up"}}-wide-short"></i>
+                    </button>
+                </th>
                 <th>Action</th>
             </tr>
         </thead>

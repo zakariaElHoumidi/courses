@@ -20,7 +20,7 @@ class Index extends Component
 
     public ?int $concept_id, $category_id = null, $language_id = null;
 
-    public string $search = "";
+    public string $search = "", $mode_sort = 'desc';
 
     public function mount(): void
     {
@@ -53,7 +53,11 @@ class Index extends Component
         $concept_exist = $query->exists();
 
         if ($concept_exist) {
-            $this->concepts = $query->latest()->get();
+            if ($this->mode_sort == 'desc') {
+                $this->concepts = $query->latest()->get();
+            } else {
+                $this->concepts = $query->oldest()->get();
+            }
         } else {
             $this->concepts = new Collection();
         }
@@ -131,6 +135,11 @@ class Index extends Component
                 $this->cannotDelete = true;
             }
         }
+    }
+
+    public function changeModeSort(): void {
+        $this->mode_sort = $this->mode_sort == 'asc' ? 'desc' : 'asc';
+        $this->getConcepts();
     }
 
     public function render()

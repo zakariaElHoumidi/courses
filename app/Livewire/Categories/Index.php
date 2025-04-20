@@ -19,7 +19,7 @@ class Index extends Component
 
     public ?int $category_id;
 
-    public string $search = "";
+    public string $search = "", $mode_sort = 'desc';
 
     public function mount(): void
     {
@@ -38,7 +38,11 @@ class Index extends Component
         $category_exist = $query->exists();
 
         if ($category_exist) {
-            $this->categories = $query->latest()->get();
+            if ($this->mode_sort == 'desc') {
+                $this->categories = $query->latest()->get();
+            } else {
+                $this->categories = $query->oldest()->get();
+            }
         } else {
             $this->categories = new Collection();
         }
@@ -99,6 +103,11 @@ class Index extends Component
                 $this->cannotDelete = true;
             }
         }
+    }
+
+    public function changeModeSort(): void {
+        $this->mode_sort = $this->mode_sort == 'asc' ? 'desc' : 'asc';
+        $this->getCategories();
     }
 
     public function render()

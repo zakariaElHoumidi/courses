@@ -19,7 +19,7 @@ class Index extends Component
 
     public ?int $language_id;
 
-    public string $search = "";
+    public string $search = "", $mode_sort = 'desc';
 
     public function mount(): void
     {
@@ -41,7 +41,11 @@ class Index extends Component
         $language_exist = $query->exists();
 
         if ($language_exist) {
-            $this->languages = $query->latest()->get();
+            if ($this->mode_sort == 'desc') {
+                $this->languages = $query->latest()->get();
+            } else {
+                $this->languages = $query->oldest()->get();
+            }
         } else {
             $this->languages = new Collection();
         }
@@ -102,6 +106,11 @@ class Index extends Component
                 $this->cannotDelete = true;
             }
         }
+    }
+
+    public function changeModeSort(): void {
+        $this->mode_sort = $this->mode_sort == 'asc' ? 'desc' : 'asc';
+        $this->getLanguages();
     }
 
     public function render()
