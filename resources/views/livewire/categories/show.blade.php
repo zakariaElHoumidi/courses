@@ -22,10 +22,10 @@
                         <li class="list-group-item d-flex align-items-center justify-content-between">
                             {{ $concept->label }}
 
-                            <button class="btn btn-outline-danger btn-sm">
+                            <button class="btn btn-outline-danger btn-sm" wire:click='disengagementConcept({{ $concept->id }})'>
                                 <i class="fa-solid fa-trash"></i>
 
-                                Remove Ass (Not Yet)
+                                Disengagement Concept
                             </button>
                         </li>
                     @empty

@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('label');
             $table->text('description');
             $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('category_id')->constrained('categories');
-            $table->foreignId('language_id')->constrained('languages');
+            $table->foreignId('category_id')->nullable()->constrained('categories');
+            $table->foreignId('language_id')->nullable()->constrained('languages');
             $table->timestamps();
         });
     }

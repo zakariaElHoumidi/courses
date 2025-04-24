@@ -3,6 +3,7 @@
 namespace App\Livewire\Categories;
 
 use App\Models\Category;
+use App\Models\Concept;
 use Illuminate\Database\QueryException;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -51,6 +52,17 @@ class Show extends Component
                 $this->cannotDelete = true;
             }
         }
+    }
+
+    public function disengagementConcept(int $id) {
+        $concept = Concept::find($id);
+
+        if (!$concept) {
+            return;
+        }
+        $concept->update([
+            'category_id' => null
+        ]);
     }
 
     public function render()
