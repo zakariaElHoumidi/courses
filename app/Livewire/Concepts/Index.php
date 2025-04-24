@@ -13,7 +13,7 @@ use Livewire\Component;
 
 class Index extends Component
 {
-    public Collection $concepts, $categories, $languages;
+    public Collection $categories, $languages;
     public bool $showModalStore = false, $showModalUpdate = false, $cannotDelete = false;
 
     public User $user;
@@ -31,7 +31,7 @@ class Index extends Component
         $this->getConcepts();
     }
 
-    private function getConcepts(): void
+    private function getConcepts()
     {
         $query = Concept::where('user_id', $this->user->id);
 
@@ -58,11 +58,9 @@ class Index extends Component
             } else {
                 $query->oldest();
             }
-
-            $this->concepts = $query->get();
-        } else {
-            $this->concepts = new Collection();
         }
+
+        return $query->paginate(5);
     }
 
     private function getCategories(): void
@@ -146,6 +144,8 @@ class Index extends Component
 
     public function render()
     {
-        return view('livewire.concepts.index');
+        return view('livewire.concepts.index', [
+            'concepts' => $this->getConcepts()
+        ]);
     }
 }

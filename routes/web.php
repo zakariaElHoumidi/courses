@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ConceptController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LanguageController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -21,12 +24,15 @@ Auth::routes(['verify' => true]);
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [HomeController::class, 'home'])->name('home');
     Route::prefix('concepts')->name('concepts.')->group(function () {
-        Route::get('/', [HomeController::class, 'concepts'])->name('index');
+        Route::get('/', [ConceptController::class, 'concepts'])->name('index');
+        Route::get('/${id}', [ConceptController::class, 'show'])->name('show');
     });
     Route::prefix('languages')->name('languages.')->group(function () {
-        Route::get('/', [HomeController::class, 'languages'])->name('index');
+        Route::get('/', [LanguageController::class, 'languages'])->name('index');
+        Route::get('/${id}', [LanguageController::class, 'show'])->name('show');
     });
     Route::prefix('categories')->name('categories.')->group(function () {
-        Route::get('/', [HomeController::class, 'categories'])->name('index');
+        Route::get('/', [CategoryController::class, 'categories'])->name('index');
+        Route::get('/${id}', [CategoryController::class, 'show'])->name('show');
     });
 });

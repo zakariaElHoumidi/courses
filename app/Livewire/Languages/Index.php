@@ -4,14 +4,12 @@ namespace App\Livewire\Languages;
 
 use App\Models\Language;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\QueryException;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Index extends Component
 {
-    public Collection $languages;
     public User $user;
     public bool $showModalStore = false;
     public bool $showModalUpdate = false;
@@ -27,7 +25,7 @@ class Index extends Component
         $this->getLanguages();
     }
 
-    private function getLanguages(): void
+    private function getLanguages()
     {
         $query = Language::where('user_id', $this->user->id);
 
@@ -46,11 +44,9 @@ class Index extends Component
             } else {
                 $query->oldest();
             }
-
-            $this->languages = $query->get();
-        } else {
-            $this->languages = new Collection();
         }
+
+        return $query->paginate(5);
     }
 
     public function updatedSearch()
@@ -117,6 +113,8 @@ class Index extends Component
 
     public function render()
     {
-        return view('livewire.languages.index');
+        return view('livewire.languages.index', [
+            'languages' => $this->getLanguages()
+        ]);
     }
 }

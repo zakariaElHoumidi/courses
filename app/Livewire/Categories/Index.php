@@ -4,14 +4,12 @@ namespace App\Livewire\Categories;
 
 use App\Models\Category;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\QueryException;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Index extends Component
 {
-    public Collection $categories;
     public User $user;
     public bool $showModalStore = false;
     public bool $showModalUpdate = false;
@@ -27,7 +25,7 @@ class Index extends Component
         $this->getCategories();
     }
 
-    private function getCategories(): void
+    private function getCategories()
     {
         $query = Category::where('user_id', $this->user->id);
 
@@ -43,11 +41,9 @@ class Index extends Component
             } else {
                 $query->oldest();
             }
-
-            $this->categories = $query->get();
-        } else {
-            $this->categories = new Collection();
         }
+
+        return $query->paginate(5);
     }
 
     public function updatedSearch()
@@ -114,6 +110,8 @@ class Index extends Component
 
     public function render()
     {
-        return view('livewire.categories.index');
+        return view('livewire.categories.index', [
+            'categories' => $this->getCategories()
+        ]);
     }
 }

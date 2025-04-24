@@ -27,7 +27,7 @@
                 <th>
                     Label
                     <button class="btn btn-sm" wire:click='changeModeSort()'>
-                        <i class="fa-solid fa-arrow-{{$mode_sort == "asc" ? "down" : "up"}}-wide-short"></i>
+                        <i class="fa-solid fa-arrow-{{ $mode_sort == 'asc' ? 'down' : 'up' }}-wide-short"></i>
                     </button>
                 </th>
                 <th>Action</th>
@@ -44,6 +44,10 @@
                         <button class="btn btn-outline-danger btn-sm" wire:click='deleteCategory({{ $category->id }})'>
                             <i class="fa-solid fa-trash"></i>
                         </button>
+                        <a class="btn btn-outline-info btn-sm" href="{{ route('categories.show', $category->id) }}"
+                            wire:navigate>
+                            <i class="fa-solid fa-eye"></i>
+                        </a>
                     </td>
                 </tr>
             @empty
@@ -53,6 +57,8 @@
             @endforelse
         </tbody>
     </table>
+
+    {{ $categories->links() }}
 
     @if ($showModalStore)
         <livewire:categories.store />

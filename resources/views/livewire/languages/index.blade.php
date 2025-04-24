@@ -46,6 +46,10 @@
                         <button class="btn btn-outline-danger btn-sm" wire:click='deleteLanguage({{ $language->id }})'>
                             <i class="fa-solid fa-trash"></i>
                         </button>
+                        <a class="btn btn-outline-info btn-sm" href="{{ route('languages.show', $language->id) }}"
+                            wire:navigate>
+                            <i class="fa-solid fa-eye"></i>
+                        </a>
                     </td>
                 </tr>
             @empty
@@ -56,6 +60,7 @@
         </tbody>
     </table>
 
+    {{ $languages->links() }}
 
     @if ($showModalStore)
         <livewire:languages.store />

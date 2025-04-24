@@ -66,6 +66,10 @@
                         <button class="btn btn-outline-danger btn-sm" wire:click='deleteConcept({{ $concept->id }})'>
                             <i class="fa-solid fa-trash"></i>
                         </button>
+                        <a class="btn btn-outline-info btn-sm" href="{{ route('concepts.show', $concept->id) }}"
+                            wire:navigate>
+                            <i class="fa-solid fa-eye"></i>
+                        </a>
                     </td>
                 </tr>
             @empty
@@ -75,6 +79,8 @@
             @endforelse
         </tbody>
     </table>
+
+    {{ $concepts->links() }}
 
     @if ($showModalStore)
         <livewire:concepts.store />
