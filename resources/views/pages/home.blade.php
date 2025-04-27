@@ -5,6 +5,7 @@
         <livewire:charts.categories />
         <livewire:charts.languages />
     </div>
+    <livewire:charts.lessons />
     <x-concept />
     <x-language />
     <x-lesson />
