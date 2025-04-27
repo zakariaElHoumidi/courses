@@ -2,6 +2,7 @@
 
 @section('content-parent')
     <x-core.header />
+
     <div class="container-fluid mt-3">
         @yield('content')
     </div>
