@@ -1,7 +1,10 @@
 @extends('layouts.user')
 @section('content')
     <x-core.welcome-message />
-    <livewire:charts.categories />
+    <div class="container mt-3 d-flex align-items-center">
+        <livewire:charts.categories />
+        <livewire:charts.languages />
+    </div>
     <x-concept />
     <x-language />
     <x-lesson />

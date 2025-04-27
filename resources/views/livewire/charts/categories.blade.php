@@ -1,7 +1,6 @@
-<div class="container mt-5">
-    <div class="row">
-        <canvas id="categoriesChart"></canvas>
-    </div>
+<div style="background-color: #f8f9fa" class="border rounded p-4">
+    <h5 class="mb-4">Nombre de Concepts par Categorie</h5>
+    <canvas id="categoriesChart"></canvas>
 </div>
 
 @push('scripts')
