@@ -4,6 +4,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ConceptController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\LessonController;
+use App\Http\Controllers\LessonPartController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -34,5 +36,13 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('categories')->name('categories.')->group(function () {
         Route::get('/', [CategoryController::class, 'categories'])->name('index');
         Route::get('/${id}', [CategoryController::class, 'show'])->name('show');
+    });
+    Route::prefix('lessons')->name('lessons.')->group(function () {
+        Route::get('/', [LessonController::class, 'lessons'])->name('index');
+        Route::get('/${id}', [LessonController::class, 'show'])->name('show');
+    });
+    Route::prefix('lessons-parts')->name('lessons-parts.')->group(function () {
+        Route::get('/', [LessonPartController::class, 'lessons_parts'])->name('index');
+        Route::get('/${id}', [LessonPartController::class, 'show'])->name('show');
     });
 });

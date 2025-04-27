@@ -28,10 +28,5 @@ class CategorySeeder extends Seeder
             'label' => 'Security',
             'user_id' => User::first()->id
         ]);
-
-        Category::create([
-            'label' => 'Autre',
-            'user_id' => User::first()->id
-        ]);
     }
 }

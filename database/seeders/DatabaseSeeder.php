@@ -19,8 +19,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             CategorySeeder::class,
-            LanguageSeeder::class,
-            ConceptSeeder::class
+            // LanguageSeeder::class,
+            // ConceptSeeder::class,
+            LessonSeeder::class
         ]);
     }
 }

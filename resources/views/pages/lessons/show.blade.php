@@ -1,4 +1,4 @@
 @extends('layouts.user')
 @section('content')
-    <livewire:categories.show :id="$id"/>
+    <livewire:lessons.show :id="$id"/>
 @endsection

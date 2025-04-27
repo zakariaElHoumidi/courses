@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 #[ObservedBy(ConceptObserver::class)]
 class Concept extends Model
@@ -31,5 +32,9 @@ class Concept extends Model
 
     public function language(): BelongsTo {
         return $this->belongsTo(Language::class);
+    }
+
+    public function lessons(): HasMany {
+        return $this->hasMany(Lesson::class);
     }
 }
